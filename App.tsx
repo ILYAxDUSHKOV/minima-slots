@@ -113,7 +113,7 @@ const App: React.FC = () => {
       {/* CENTERED CONTENT AREA */}
       <div className="flex-1 w-full flex flex-col items-center justify-center z-10 px-4">
         
-        {/* SLOTS PANEL: Vertically centered in the flexible middle area */}
+        {/* SLOTS PANEL: Vertically centered, but pushed higher by the button's bottom padding */}
         <div className="flex-1 flex items-center justify-center w-full max-w-sm md:max-w-md">
           <div className="w-full flex gap-2 md:gap-3 p-3 md:p-5 rounded-[2.5rem] bg-white border-[3px] border-black rainbow-border shadow-sm">
             {reels.map((symbol, i) => (
@@ -128,8 +128,8 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* SPIN BUTTON AREA: Positioned above the footer space */}
-        <div className="z-20 pb-20 md:pb-28">
+        {/* SPIN BUTTON AREA: Raised higher by increasing padding-bottom */}
+        <div className="z-20 pb-32 md:pb-44">
           <button
             onClick={handleSpin}
             className={`spin-btn w-56 md:w-64 h-14 md:h-16 py-2.5 text-lg font-bold border-[3px] border-black rounded-full bg-white text-black cursor-pointer active:scale-95 rainbow-border flex items-center justify-center relative overflow-hidden ${
