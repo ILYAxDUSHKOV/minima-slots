@@ -60,7 +60,6 @@
       100% { stroke: #ff0000; }
     }
 
-    /* Logic-based classes for animation states */
     .is-winning-anim .rainbow-text {
       animation: rainbow-text 1.5s linear infinite !important;
       opacity: 1 !important;
@@ -77,14 +76,22 @@
       opacity: 1 !important;
     }
 
-    /* Custom locking mechanism for spin state */
     .locked {
       pointer-events: none !important;
       cursor: default !important;
-      opacity: 0.7; /* Visual feedback for blocked interaction */
+      opacity: 0.7;
     }
 
-    /* Victory Animation Text Logic */
+    .spin-btn {
+      transition: all 0.2s ease-in-out;
+    }
+
+    .spin-btn:hover:not(.locked) {
+      background-color: #000000 !important;
+      color: #FFFFFF !important;
+      transform: scale(1.05);
+    }
+
     .spin-button-content {
       transition: opacity 0.8s ease-in-out;
       opacity: 1;
@@ -92,7 +99,27 @@
 
     .is-winning-anim .spin-button-content {
       opacity: 0 !important;
-      transition: opacity 0.05s ease-in !important; /* Immediate hide */
+      transition: opacity 0.05s ease-in !important;
+    }
+
+    .app-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #888888;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .dot-separator {
+      font-size: 20px;
+      line-height: 0;
+      margin-top: -2px;
     }
 
     .slot-cell {

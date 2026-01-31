@@ -52,10 +52,7 @@ const App: React.FC = () => {
   };
 
   const handleSpin = useCallback(() => {
-    // CRITICAL: Block interaction if already in a win sequence
-    if (status === GameStatus.WINNING || isWinningAnim) {
-      return;
-    }
+    if (status === GameStatus.WINNING || isWinningAnim) return;
 
     if (status === GameStatus.SPINNING) {
       clearAllTimers();
@@ -68,7 +65,6 @@ const App: React.FC = () => {
     setIsWinningAnim(false);
 
     const nextResults = [getRandomSymbol(), getRandomSymbol(), getRandomSymbol()];
-    
     resultsRef.current = nextResults;
     setReels(nextResults);
     setSpinningStates([true, true, true]);
@@ -93,7 +89,6 @@ const App: React.FC = () => {
         }
       }, delay);
     });
-
   }, [status, isWinningAnim, getRandomSymbol, clearAllTimers]);
 
   useEffect(() => {
@@ -103,21 +98,24 @@ const App: React.FC = () => {
   return (
     <div className={`h-screen w-screen flex flex-col items-center bg-white transition-colors duration-500 relative overflow-hidden ${isWinningAnim ? 'is-winning-anim' : ''}`}>
       
-      <header className="flex flex-col items-center justify-center z-20 text-center pt-8 md:pt-16 pb-4">
+      {/* HEADER */}
+      <header className="w-full flex flex-col items-center justify-center z-20 text-center pt-10 md:pt-16">
         <div className="inline-flex flex-col items-end">
           <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-black select-none rainbow-text">
             Minima Slots
           </h1>
-          <span className="text-sm md:text-xl font-medium text-black opacity-60 tracking-widest mt-0.5 md:mt-1 rainbow-text">
+          <span className="text-sm md:text-xl font-medium text-black opacity-60 tracking-widest mt-1 rainbow-text">
             by Dushkov
           </span>
         </div>
       </header>
 
-      <main className="flex-1 w-full flex flex-col items-center justify-center -translate-y-16 md:-translate-y-24 z-10 px-4">
+      {/* CENTERED CONTENT AREA */}
+      <div className="flex-1 w-full flex flex-col items-center justify-center z-10 px-4">
         
-        <div className="w-full max-w-sm md:max-w-md mb-20 md:mb-32">
-          <div className="flex gap-2 md:gap-3 w-full p-3 md:p-5 rounded-[2.5rem] bg-white border-[3px] border-black rainbow-border shadow-sm">
+        {/* SLOTS PANEL: Vertically centered in the flexible middle area */}
+        <div className="flex-1 flex items-center justify-center w-full max-w-sm md:max-w-md">
+          <div className="w-full flex gap-2 md:gap-3 p-3 md:p-5 rounded-[2.5rem] bg-white border-[3px] border-black rainbow-border shadow-sm">
             {reels.map((symbol, i) => (
               <Reel 
                 key={i}
@@ -130,10 +128,11 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="z-20">
+        {/* SPIN BUTTON AREA: Positioned above the footer space */}
+        <div className="z-20 pb-20 md:pb-28">
           <button
             onClick={handleSpin}
-            className={`w-40 md:w-48 h-12 md:h-14 py-2.5 text-base font-bold border-[3px] border-black rounded-full transition-all bg-white text-black hover:bg-black hover:text-white cursor-pointer active:scale-95 rainbow-border flex items-center justify-center relative overflow-hidden ${
+            className={`spin-btn w-56 md:w-64 h-14 md:h-16 py-2.5 text-lg font-bold border-[3px] border-black rounded-full bg-white text-black cursor-pointer active:scale-95 rainbow-border flex items-center justify-center relative overflow-hidden ${
               (status === GameStatus.WINNING || isWinningAnim) ? 'locked' : ''
             }`}
           >
@@ -142,7 +141,14 @@ const App: React.FC = () => {
             </span>
           </button>
         </div>
-      </main>
+      </div>
+
+      {/* FOOTER */}
+      <footer className="app-footer z-30">
+        <span>Free to play</span>
+        <span className="dot-separator">•</span>
+        <span>Minima Games</span>
+      </footer>
     </div>
   );
 };
